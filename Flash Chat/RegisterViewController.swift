@@ -31,7 +31,7 @@ class RegisterViewController: UIViewController {
   
     @IBAction func registerPressed(_ sender: AnyObject) {
         
-        SVProgressHUD.show()
+        
         
         //TODO: Set up a new user on our Firbase database
         
@@ -39,14 +39,24 @@ class RegisterViewController: UIViewController {
             
             if error != nil {
                 print(error!)
+                
+                let alert = UIAlertController(title: "Error!", message: "Please enter your email and password min 6 characters.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`, handler: { _ in
+                    NSLog("The \"OK\" alert occured.")
+                }))
+                self.present(alert, animated: true, completion: nil)
+                
             } else {
                 //Success
                 print("Registraion Successful!")
                 
-                SVProgressHUD.dismiss()
+                SVProgressHUD.show()
+                
                 
                 //need self before when ur inside of a closure!
                 self.performSegue(withIdentifier: "goToChat", sender: self)
+                
+                SVProgressHUD.dismiss()
             }
         }
 

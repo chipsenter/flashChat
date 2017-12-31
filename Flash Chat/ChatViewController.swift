@@ -201,6 +201,10 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             self.configureTableView()
             self.messageTableView.reloadData()
+            
+            let indexPath = IndexPath(row: self.messageArray.count - 1, section: 0)
+            
+            self.messageTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         })
         
     }

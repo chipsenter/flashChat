@@ -28,20 +28,30 @@ class LogInViewController: UIViewController {
    
     @IBAction func logInPressed(_ sender: AnyObject) {
 
-        SVProgressHUD.show()
+       
         
         Auth.auth().signIn(withEmail: emailTextfield.text!, password: passwordTextfield.text!) { (user, error) in
             
             if error != nil {
                 print(error!)
+                
+                let alert = UIAlertController(title: "Error!", message: "Wrong Username or Password.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`, handler: { _ in
+                    NSLog("The \"OK\" alert occured.")
+                }))
+                self.present(alert, animated: true, completion: nil)
+                
             } else {
                 //Success
                 print("Login Successful!")
                 
-                SVProgressHUD.dismiss()
+                 SVProgressHUD.show()
+                
                 
                 //need "self" before when ur inside of a closure!
                 self.performSegue(withIdentifier: "goToChat", sender: self)
+                
+                SVProgressHUD.dismiss()
             }
         }
         
